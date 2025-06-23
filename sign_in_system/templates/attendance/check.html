@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Attendance Check-In/Out</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 50px;
+      background-color:#756969;
+      color: white;
+    }
+    h1 {
+      color: #f0f0f0;
+    }
+    button {
+      font-size: 18px;
+      padding: 10px 20px;
+      margin: 20px;
+      background-color: #007bff;
+      border: none;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #033468;
+    }
+    table {
+      margin: 30px auto;
+      border-collapse: collapse;
+      width: 80%;
+      background-color: #444;
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid #888;
+    }
+    th {
+      background-color: #333;
+    }
+    .message {
+      color: limegreen;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  {% if message %}
+  <p style="color: white; background-color: green; padding: 10px; border-radius: 6px;">
+    {{ message }}
+  </p>
+{% endif %}
+
+
+  <h1>Welcome, {{ user.username }}!</h1>
+
+  {% if message %}
+    <p class="message">{{ message }}</p>
+  {% endif %}
+
+  <p>Use the buttons below to check in or check out.</p>
+
+  {% if attendance %}
+    <p>Check-in time: {{ attendance.check_in_time }}</p>
+    {% if attendance.check_out_time %}
+      <p>Check-out time: {{ attendance.check_out_time }}</p>
+    {% else %}
+      <p>Not checked out yet.</p>
+    {% endif %}
+  {% else %}
+    <p>No check-in yet today.</p>
+  {% endif %}
+
+  <form method="post" action="{% url 'api_check_in' %}">
+    {% csrf_token %}
+    <button type="submit">Check In</button>
+  </form>
+
+  <form method="post" action="{% url 'api_check_out' %}">
+    {% csrf_token %}
+    <button type="submit">Check Out</button>
+  </form>
+
+  <form method="post" action="{% url 'logout' %}">
+  {% csrf_token %}
+  <button type="submit">Logout</button>
+</form>
+
+  {% if history %}
+    <h2>Recent Attendance</h2>
+    <table>
+      <tr>
+        <th>Date</th>
+        <th>Check-In</th>
+        <th>Check-Out</th>
+      </tr>
+      {% for record in history %}
+        <tr>
+          <td>{{ record.date }}</td>
+          <td>{{ record.check_in_time }}</td>
+          <td>{{ record.check_out_time|default:"-" }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% endif %}
+
+</body>
+</html>
+
