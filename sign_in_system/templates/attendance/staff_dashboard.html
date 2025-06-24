@@ -1,0 +1,61 @@
+
+{% extends 'base.html' %}
+{% block content %}
+ <style>
+    .dashboard-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #f9fafb;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #2c3e50;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 10px;
+    }
+
+    .dashboard-stats p {
+      font-size: 16px;
+      color: #333;
+      margin: 8px 0;
+    }
+
+    h3 {
+      margin-top: 30px;
+      color: #1a5276;
+    }
+
+    .attendance-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .attendance-list li {
+      background-color: #e8f0fe;
+      margin-bottom: 6px;
+      padding: 10px;
+      border-left: 4px solid #3498db;
+      border-radius: 5px;
+      color: #2d3436;
+    }
+  </style>
+
+  <div class="dashboard-container">
+    <h2>Staff Dashboard</h2>
+    <div class="dashboard-stats">
+      <p>Total Check-ins Today: {{ total_checkins_today }}</p>
+      <p>Total Check-outs Today: {{ total_checkouts_today }}</p>
+      <p>Total Unique Users: {{ total_users }}</p>
+    </div>
+
+    <h3>Attendance by Day</h3>
+    <ul class="attendance-list">
+      {% for item in attendance_by_day %}
+        <li>{{ item.day }}: {{ item.count }} entries</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}
