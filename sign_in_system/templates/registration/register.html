@@ -1,15 +1,61 @@
-<!-- templates/registration/register.html -->
 {% extends "base.html" %}
 
 {% block content %}
-  <h2>Register a new account</h2>
+  <div style="
+    max-width: 500px;
+    margin: 60px auto;
+    padding: 40px;
+    background: linear-gradient(145deg, #ffffff, #f4f4f4);
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  ">
+    <h2 style="
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+      font-size: 28px;
+    ">
+      Register a New Account
+    </h2>
 
-   <form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Register</button>
-  </form>
+    <form method="post" style="display: flex; flex-direction: column;">
+      {% csrf_token %}
+      {% for field in form %}
+        <div style="margin-bottom: 20px;">
+          <label style="font-weight: 600; margin-bottom: 5px; display: block; color: #444;">
+            {{ field.label_tag }}
+          </label>
+          {{ field }}
+          {% if field.errors %}
+            <div style="color: red; font-size: 13px; margin-top: 5px;">
+              {{ field.errors|striptags }}
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
 
-   <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+      <button type="submit" style="
+        padding: 12px;
+        background-color: #007bff;
+        color: #fff;
+        font-weight: bold;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      "
+      onmouseover="this.style.backgroundColor='#0056b3'"
+      onmouseout="this.style.backgroundColor='#007bff'">
+        Register
+      </button>
+    </form>
 
+    <p style="text-align: center; margin-top: 25px; font-size: 15px;">
+      Already have an account?
+      <a href="{% url 'login' %}" style="color: #007bff; text-decoration: none;">
+        Login
+      </a>
+    </p>
+  </div>
 {% endblock %}

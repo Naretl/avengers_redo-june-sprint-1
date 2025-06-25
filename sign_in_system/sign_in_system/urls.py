@@ -17,22 +17,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import redirect
-from rest_framework.authtoken.views import obtain_auth_token  # ✅ Keep this
+from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
-    
+    path('', lambda request: redirect('login'), name='home_redirect'),  
 
     path('admin/', admin.site.urls),
-    path('api/', include('attendance.urls')),                # ✅ Your attendance API
-    path('api-token-auth/', obtain_auth_token),              # ✅ Token login endpoint
-    path('api/users/', include('users.urls')),               # ✅ Your user routes
-    path('accounts/', include('django.contrib.auth.urls')), 
-    path('attendance/', include('attendance.frontend_urls')), 
+    path('api/', include('attendance.urls')),
+    path('api-token-auth/', obtain_auth_token),
+    path('api/users/', include('users.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/', include('users.urls')),
-    path('attendance/', include('attendance.urls')),  # ✅ users.urls should have register_view etc.
- # 👈 for template views
- # ✅ Django login/logout views
+    path('attendance/', include('attendance.frontend_urls')),
+    path('attendance/', include('attendance.urls')),
 ]
+
 
 
 
