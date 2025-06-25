@@ -57,7 +57,7 @@ ul.attendance-list li {
 <body>
 
    <!-- Navigation (visible only to staff users) -->
-  {% if user.is_authenticated and user.user_type == 'staff' %}
+  {% if user.is_authenticated and user.user_type == 'staff' and request.path != '/attendance/dashboard/' %}
     <nav>
       <a href="{% url 'staff_dashboard' %}">Dashboard</a>
     </nav>

@@ -3,23 +3,80 @@
 <head>
   <title>Login</title>
 </head>
-<body>
-  {% if messages %}
-  <ul>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-  </ul>
-{% endif %}
+<body style="
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+">
 
-  <h2>Login</h2>
-  {% if form.errors %}
-    <p style="color:red;">Invalid username or password</p>
-  {% endif %}
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-  </form>
+  <div style="
+    background-color: #ffffffcc;
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  ">
+
+    <h2 style="color: #333; margin-bottom: 25px;">🚀 Welcome Back!</h2>
+
+    {% if messages %}
+      <ul style="list-style: none; padding: 0; margin-bottom: 20px;">
+        {% for message in messages %}
+          <li style="background-color: #e3f2fd; padding: 10px; border-left: 5px solid #2196f3; color: #0d47a1; border-radius: 5px;">
+            {{ message }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    {% if form.errors %}
+      <p style="color: #d32f2f; font-size: 14px;">⚠ Invalid username or password</p>
+    {% endif %}
+
+    <form method="post" style="text-align: left;">
+      {% csrf_token %}
+      {% for field in form %}
+        <div style="margin-bottom: 20px;">
+          <label style="font-weight: 600; color: #333;">{{ field.label_tag }}</label><br>
+          {{ field }}
+          {% if field.errors %}
+            <small style="color: #d32f2f;">{{ field.errors|striptags }}</small>
+          {% endif %}
+        </div>
+      {% endfor %}
+
+      <button type="submit" style="
+        width: 100%;
+        padding: 12px;
+        background-color: #2196f3;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      "
+      onmouseover="this.style.backgroundColor='#1976d2'"
+      onmouseout="this.style.backgroundColor='#2196f3'">
+        Login
+      </button>
+    </form>
+
+    <p style="margin-top: 20px; color: #333;">
+      Don't have an account?
+      <a href="{% url 'register' %}" style="color: #1976d2; text-decoration: none; font-weight: bold;">Register</a>
+    </p>
+
+  </div>
+
 </body>
 </html>
+

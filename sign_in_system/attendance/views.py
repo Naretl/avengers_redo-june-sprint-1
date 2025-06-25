@@ -52,13 +52,12 @@ def check_page(request):
     message = request.GET.get('message')
     
     history = Attendance.objects.filter(user=user).order_by('-date')[:10]
-  # ✅ read message from query string
 
     return render(request, 'attendance/check.html', {
         'attendance': attendance,
         'user': user,
         'history': history,
-        'message': message # ✅ pass to template
+        'message': message 
     })
 
 from django.contrib.auth.decorators import user_passes_test

@@ -1,61 +1,108 @@
-
 {% extends 'base.html' %}
 {% block content %}
- <style>
-    .dashboard-container {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 20px;
-      background-color: #f9fafb;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
+<style>
+  body {
+    background-color: #eef2f7;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
 
-    h2 {
-      color: #2c3e50;
-      border-bottom: 2px solid #ddd;
-      padding-bottom: 10px;
-    }
+  .dashboard-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  }
 
-    .dashboard-stats p {
-      font-size: 16px;
-      color: #333;
-      margin: 8px 0;
-    }
+  h2 {
+    color: #2c3e50;
+    font-size: 28px;
+    margin-bottom: 25px;
+    text-align: center;
+  }
 
-    h3 {
-      margin-top: 30px;
-      color: #1a5276;
-    }
+  .stats-grid {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 30px;
+  }
 
-    .attendance-list {
-      list-style: none;
-      padding-left: 0;
-    }
+  .stat-card {
+    flex: 1;
+    min-width: 200px;
+    background-color: #f1f3f5;
+    padding: 20px;
+    border-left: 6px solid #3498db;
+    border-radius: 10px;
+    text-align: center;
+  }
 
-    .attendance-list li {
-      background-color: #e8f0fe;
-      margin-bottom: 6px;
-      padding: 10px;
-      border-left: 4px solid #3498db;
-      border-radius: 5px;
-      color: #2d3436;
-    }
-  </style>
+  .stat-card p {
+    margin: 0;
+    font-size: 16px;
+    color: #555;
+  }
 
-  <div class="dashboard-container">
-    <h2>Staff Dashboard</h2>
-    <div class="dashboard-stats">
-      <p>Total Check-ins Today: {{ total_checkins_today }}</p>
-      <p>Total Check-outs Today: {{ total_checkouts_today }}</p>
-      <p>Total Unique Users: {{ total_users }}</p>
+  .stat-card h3 {
+    font-size: 24px;
+    color: #2c3e50;
+    margin: 10px 0;
+  }
+
+  .attendance-section h3 {
+    margin-top: 30px;
+    color: #1a5276;
+    font-size: 22px;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 5px;
+  }
+
+  .attendance-list {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 15px;
+  }
+
+  .attendance-list li {
+    background-color: #ecf5ff;
+    padding: 12px 20px;
+    margin-bottom: 10px;
+    border-left: 5px solid #2980b9;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #2c3e50;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+</style>
+
+<div class="dashboard-container">
+  <h2>📊 Staff Dashboard</h2>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <p>✅ Check-ins Today</p>
+      <h3>{{ total_checkins_today }}</h3>
     </div>
+    <div class="stat-card">
+      <p>📤 Check-outs Today</p>
+      <h3>{{ total_checkouts_today }}</h3>
+    </div>
+    <div class="stat-card">
+      <p>👥 Unique Users</p>
+      <h3>{{ total_users }}</h3>
+    </div>
+  </div>
 
-    <h3>Attendance by Day</h3>
+  <div class="attendance-section">
+    <h3>📅 Attendance by Day</h3>
     <ul class="attendance-list">
       {% for item in attendance_by_day %}
-        <li>{{ item.day }}: {{ item.count }} entries</li>
+        <li><strong>{{ item.day }}</strong>: {{ item.count }} entries</li>
       {% endfor %}
     </ul>
   </div>
+</div>
 {% endblock %}

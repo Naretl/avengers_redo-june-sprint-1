@@ -1,0 +1,49 @@
+# Python bytecode and cache
+__pycache__/
+*.py[cod]
+
+# Django database
+db.sqlite3
+
+# Environment
+venv/
+.env
+.env.*
+
+# Migrations cache
+**/migrations/__pycache__/
+
+# macOS
+.DS_Store
+
+# VSCode or other IDE settings
+.vscode/
+.idea/
+
+# Coverage/test files
+htmlcov/
+.coverage
+.tox/
+.nosetests.xml
+coverage.xml
+*.cover
+*.log
+
+# Static/media files (if generated during dev)
+staticfiles/
+media/
+
+# Pip files (optional if generated locally)
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Requirements compiled extras
+*.egg-info/
+dist/
+build/
+
+# Jupyter (if used)
+.ipynb_checkpoints/
+
+# Ignore compiled messages (if using Django translations)
+locale/*/LC_MESSAGES/*.mo
